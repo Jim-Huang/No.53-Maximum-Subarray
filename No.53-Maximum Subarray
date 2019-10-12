@@ -1,0 +1,20 @@
+/*最大值不為負數的情況下，開頭與結尾有負數的情況不可能是最大值*/
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int Tamp_sum = nums[0];
+        int Max = Tamp_sum;
+        
+        for(int i = 1; i < nums.length; i++){
+            if(Tamp_sum+nums[i] > nums[i]){    
+                // 例[-2,1, => -2+1 > -1 不成立 可以過濾掉開頭與結尾有負數的情況
+                Max = Math.max(Max , Tamp_sum + nums[i]); //查看是否有比現有最大值還大
+                Tamp_sum = Tamp_sum + nums[i]; //找到更大值 => 刷新最大值   
+            }
+            else{              // 表示兩者加了沒有比現在遇到的(nums[i])大，代表原本的總和(Tamp_sum)很小
+                Tamp_sum = nums[i];  //答案有可能是獨立一個元素 例如nums內容為[-2,3,-1]
+                Max =  Math.max(Max,Tamp_sum); 
+            }
+        }
+        return Max;       
+    }
+}
